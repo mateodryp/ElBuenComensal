@@ -1,14 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import pizza from "../Statics/img/Pizza.png";
 import arrow from "../Statics/img/arrow.png";
-import ModalInfo from "./ModalInfo";
 import { useState } from "react";
-const RegisterPartOne = ({ fatherState, partFuntion, handleChange }) => {
+const RegisterPartOne = ({ fatherState, partFuntion, handleChange, form }) => {
   const navigate = useNavigate("");
   const [titleModal, settitleModal] = useState("")
   const [messageModal, setmessageModal] = useState("")
 
   const handleClose = (e) => {
+    const modal = document.getElementById("modalInfo")
+    if (modal !== null) {
+      modal.style.display = "none"
+    }
+
+  }
+
+  const subirArchivo = (e) => {
     const modal = document.getElementById("modalInfo")
     if (modal !== null) {
       modal.style.display = "none"
@@ -30,9 +37,8 @@ const RegisterPartOne = ({ fatherState, partFuntion, handleChange }) => {
 
     if (refNombre.value !== "" && refApellido.value !== "" && refEmail.value !== "" && refTelefono.value !== "" && refContraseña.value !== "" && refConContraseña.value !== "") {
       if (refContraseña.value.length >= 8 && refConContraseña.value.length >= 8) {
-        console.log("Longitud correcta")
         if (refContraseña.value === refConContraseña.value) {
-          console.log("Contraseña coinciden")
+          partFuntion(2)
         }
         else {
           settitleModal("¡Las contraseñas no coinciden!")
@@ -107,21 +113,21 @@ const RegisterPartOne = ({ fatherState, partFuntion, handleChange }) => {
               <div className="main_register_element_form_form_row">
                 <div className="main_register_element_form_form_row_group">
                   <label htmlFor="nombres">Nombres</label>
-                  <input type="text" name="Nombres" id="nombres" onChange={handleChange} />
+                  <input type="text" name="Nombres" id="nombres" onChange={handleChange} value={form["Nombres"] ? form["Nombres"] : ""}/>
                 </div>
                 <div className="main_register_element_form_form_row_group">
                   <label htmlFor="apellidos">Apellidos</label>
-                  <input type="text" name="Apellidos" id="apellidos" onChange={handleChange} />
+                  <input type="text" name="Apellidos" id="apellidos" onChange={handleChange} value={form["Apellidos"] ? form["Apellidos"] : ""}/>
                 </div>
               </div>
               <div className="main_register_element_form_form_row">
                 <div className="main_register_element_form_form_row_group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="Email" id="email" onChange={handleChange} />
+                  <input type="email" name="Email" id="email" onChange={handleChange} value={form["Email"] ? form["Email"] : ""}/>
                 </div>
                 <div className="main_register_element_form_form_row_group">
                   <label htmlFor="telefono">Telefono</label>
-                  <input type="tel" name="Telefono" id="telefono" onChange={handleChange} />
+                  <input type="number" name="Telefono" id="telefono" onChange={handleChange} value={form["Telefono"] ? form["Telefono"] : ""} />
                 </div>
               </div>
               <div className="main_register_element_form_form_row">

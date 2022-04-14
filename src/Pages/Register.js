@@ -19,16 +19,16 @@ const Register = () => {
 
     switch(part){
         case 1:
-            return(<RegisterPartOne fatherState={part} partFuntion={setpart} handleChange={handleChange}/>)
+            return(<RegisterPartOne fatherState={part} partFuntion={setpart} handleChange={handleChange} form={form}/> )
             break;
         case 2:
-            return(<RegisterPartTwo fatherState={part} partFuntion={setpart} handleChange={handleChange}/>)
+            return(<RegisterPartTwo fatherState={part} partFuntion={setpart} handleChange={handleChange} form={form}/>)
             break;
         case 3:
-            return(<RegisterPartThree fatherState={part} partFuntion={setpart} handleChange={handleChange}/>)
+            return(<RegisterPartThree fatherState={part} partFuntion={setpart} handleChange={handleChange} form={form}/>)
             break;
         default:
-            return(<RegisterPartOne fatherState={part} partFuntion={setpart} handleChange={handleChange}/>)
+            return(<RegisterPartOne fatherState={part} partFuntion={setpart} handleChange={handleChange} form={form}/>)
             break;
     }
   

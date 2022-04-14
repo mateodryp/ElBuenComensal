@@ -1,3 +1,5 @@
+
+
 :root{
     --Yellow: #FCB500;
     --Black: #343434;
@@ -358,6 +360,7 @@ width: 100rem;
     height: 2.8rem;
     width: 20rem;
     border-radius: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .main_register_element_form_form_row_group label{
@@ -460,9 +463,12 @@ width: 100rem;
     font-size: 1.2rem;
 }
 
-.main_register_element_form_form_column_group_pdf img{
-    width: 5rem;
-    height: 5rem;
+.main_register_element_form_form_column_group_pdf input{
+    display: none;
+}
+
+.main_register_element_form_form_column_group_pdf label:hover{
+    cursor: pointer;
 }
 
 .main_register_element_form_form_column_group_op{
@@ -485,7 +491,7 @@ width: 100rem;
     font-size: 1.5rem;
 }
 
-.main_register_element_form_form2_button a{
+.main_register_element_form_form2_button button{
     margin-top: -6rem;
     width: 15rem;
     height: 3.5rem;
