@@ -279,6 +279,11 @@ width: 100rem;
     width: 100rem;
     }
 
+.main_register_element_image img{
+    width: 80%;
+
+}
+
 .main_register_element_form_head_title{
     font-size: 1rem;
 }
@@ -598,4 +603,302 @@ width: 100rem;
 
 .modalInfo__button button:hover{
     cursor: pointer;
+}
+
+/*Como funciona*/
+
+.main_section_selectors{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    padding-top: 2rem;
+
+}
+
+.main_Section_selectors_selector_y, 
+.main_Section_selectors_selector_b{
+    height: 9rem;
+    width: 9rem;
+    border-radius: 50%;
+    margin-bottom: -4rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main_Section_selectors_selector_y img, 
+.main_Section_selectors_selector_b img{
+    width: 70%;
+}
+
+.main_Section_selectors_selector_y img:hover, 
+.main_Section_selectors_selector_b img:hover{
+    cursor: pointer;
+}
+
+
+
+.main_Section_selectors_selector_y{
+    background-color: var(--Yellow);
+}
+
+.main_Section_selectors_selector_b{
+    background-color: var(--Black);
+}
+
+.main_steps_image{
+    margin-top: 10rem;
+    padding-left: 20rem;
+    padding-right: 20rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+.main_steps_image img{
+    width: 70%;
+}
+
+/*Footer*/
+.main_footer{
+    margin-top: 5rem;
+    height: 30rem;
+    background-color: var(--Black);
+    display: flex;
+}
+
+.main_footer_social{
+    height: 100%;
+    width: 100rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.main_footer_social_apps{
+    padding-top: 1rem;
+    height: 10rem;
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.main_footer_social_apps h3{
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--Gray);
+}
+
+.main_footer_social_social{
+    padding-top: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 10rem;
+    width: 50rem;
+    color: var(--Gray);
+}
+
+.main_footer_social_apps_image img{
+    width: 10%;
+}
+
+.main_footer_social_social h3{
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--Gray);
+}
+
+.main_footer_social_apps_image{
+    gap: 3rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.main_footer_social_social_content_media{
+    display: flex;
+    margin-top: 1rem;
+    gap: 2rem;
+
+}
+
+.main_footer_social_social_content_media_content{
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--Gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_footer_social_social_content_media_content img{
+    width: 70%;
+}
+
+.main_footer_info{
+    width: 70%;
+    margin-right:30rem;
+    display: flex;
+}
+
+.main_footer_info_div{
+    width: 33.3%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.main_footer_info_div_img{
+    width: 33.3%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_footer_info_div_img img{
+    height: 50%;
+    width: 50%;
+    
+}
+
+.main_footer_info_div a{
+    display: block;
+}
+
+.main_footer_info_div:first-child,
+.main_footer_info_div:last-child
+{
+    padding-top: 5rem;
+    
+}
+
+.main_footer_info_div:first-child a,
+.main_footer_info_div:last-child a{
+    font-size: 1.7rem;
+    color: var(--Gray);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    
+}
+
+.main_footer_info_div:last-child a{
+ justify-content: center;
+ text-align: end;
+}
+
+/*Home Restaurant*/
+
+.main_restaurant{
+    display: flex;
+    
+}
+.main_restaurant_header{
+    background-color: yellow;
+    width: 100%;
+    height: 7rem;
+}
+
+.main_restaurant_aside{
+    background-color: var(--Black);
+    width: 7rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_restaurant_aside_logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 7rem;
+    padding: 2rem;
+    border-bottom: 2px solid #6C6C6C;
+}
+
+.main_restaurant_aside_main_options{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap:1rem;
+    border-bottom: 2px solid #6C6C6C;
+    
+}
+
+.main_restaurant_aside_config_options{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap:1rem;
+    
+}
+
+.main_restaurant_aside_main_options_optionHome,
+.main_restaurant_aside_main_options_optionStadistic,
+.main_restaurant_aside_main_options_optionComment,
+.main_restaurant_aside_main_options_optionSuggestion,
+.main_restaurant_aside_main_options_optionComplaint,
+.main_restaurant_aside_config_options_optionProfile,
+.main_restaurant_aside_config_options_optionLogout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.main_restaurant_aside_main_options_optionHome img:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_aside_main_options_optionStadistic img:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_aside_main_options_optionComment img:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_aside_main_options_optionSuggestion img:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_aside_main_options_optionComplaint img:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_aside_main_options_optionHome_title,
+.main_restaurant_aside_main_options_optionStadistic_title,
+.main_restaurant_aside_main_options_optionComment_title,
+.main_restaurant_aside_main_options_optionSuggestion_title,
+.main_restaurant_aside_main_options_optionComplaint_title,
+.main_restaurant_aside_config_options_optionProfile_title,
+.main_restaurant_aside_config_options_optionLogout_title{
+    background-color: var(--Black);
+    width: 12rem;
+    height: 4rem;
+    position: absolute;
+    margin-right: -22rem;
+    border-radius: .5rem;
+    align-items: center;
+    justify-content: center;
+    color: var(--Gray);
+    display: none;
 }

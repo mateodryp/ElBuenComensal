@@ -4,6 +4,29 @@ import hamburguer from '../Statics/img/Hamburguer.png'
 import arrow from "../Statics/img/arrow.png";
 
 const Login = () => {
+
+    const requestLogin = async (e) => {
+        e.preventDefault()
+        let refUser = document.getElementById("correoElectronico")
+        let refPassword = document.getElementById("contraseña")
+
+        if (refUser.value !== "" && refPassword.value !== "") {
+            const formData = new FormData();
+            formData.append("email", refUser.value)
+            formData.append("password", refPassword.value)
+
+            try {
+                const resPost = await fetch("http://144.22.197.146:8000/restaurants/login/", {
+                    method: 'POST',
+                    body: formData,
+                })
+                const post = await resPost.json()
+                console.log(post)
+            } catch (e) {
+                console.log(e)
+            };
+        }
+    }
     const navigate = useNavigate();
     return (
         <>
@@ -17,11 +40,11 @@ const Login = () => {
                         <div class="main_login_element_form_title">
                             <h1>Iniciar Sesión</h1>
                         </div>
-                        <form class="main_login_element_form_form">
-                            <input class="main_login_element_form_form_input" placeholder="Correo Electrónico" type="text" />
-                            <input class="main_login_element_form_form_input" placeholder="Contraseña" type="password" />
+                        <form class="main_login_element_form_form" onSubmit={requestLogin}>
+                            <input class="main_login_element_form_form_input" placeholder="Correo Electrónico" type="text" name='CorreoElectronico' id="correoElectronico" />
+                            <input class="main_login_element_form_form_input" placeholder="Contraseña" type="password" name='Contraseña' id="contraseña" />
                             <Link to="/" class="main_login_element_form_form_linkN">Olvidé mi contraseña</Link>
-                            <button class="main_login_element_form_form_button">Ingresar</button>
+                            <button class="main_login_element_form_form_button" type='submit'>Ingresar</button>
                             <Link to="/Register" class="main_login_element_form_form_linkG">Registrarme</Link>
                         </form>
                     </div>

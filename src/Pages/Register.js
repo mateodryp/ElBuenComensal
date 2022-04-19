@@ -11,7 +11,7 @@ const Register = () => {
 
     const handleChange = (e) =>{
         setform({
-            ...form,
+            ...form,    
             [e.target.name]: e.target.value,
         });
     }

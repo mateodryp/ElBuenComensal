@@ -2,9 +2,11 @@ import React from "react";
 import meat from "../Statics/img/Meat.png";
 import pdfImage from "../Statics/img/pdf.png";
 import arrow from '../Statics/img/arrow.png'
-import { useState } from "react";
+import { useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPartThree = ({ fatherState, partFuntion, handleChange, form }) => {
+  const navigate = useNavigate("");
 
   const handleClose = (e) => {
     const modal = document.getElementById("modalInfo")
@@ -39,6 +41,7 @@ const RegisterPartThree = ({ fatherState, partFuntion, handleChange, form }) => 
     })
     console.log(resPost)
     const post = await resPost.json()
+    navigate("/Login"); 
     console.log(post)
   }catch(e){
     console.log(e)
