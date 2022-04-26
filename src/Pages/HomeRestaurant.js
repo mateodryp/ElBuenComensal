@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import aside_restaurant_home_selected from '../Statics/img/aside_restaurant_home_selected.png'
 import aside_restaurant_stadistic_normal from '../Statics/img/aside_restaurant_stadistic_normal.png'
 import aside_restaurant_stadistic_hover from '../Statics/img/aside_restaurant_stadistic_hover.png'
@@ -13,10 +13,14 @@ import aside_restaurant_profile_hover from '../Statics/img/aside_restaurant_prof
 import aside_restaurant_logout_normal from '../Statics/img/aside_restaurant_logout_normal.png'
 import aside_restaurant_logout_hover from '../Statics/img/aside_restaurant_logout_hover.png'
 import AsideRestaurant from '../Components/AsideRestaurant';
-
+import background_Home from '../Statics/img/backgroud_home.jpg'
+import state_active from '../Statics/img/state_active.png'
+import state_noactive from '../Statics/img/state_noactive.png'
+import UserProvider, { UserContext } from '../Context/UserContext'
 
 const HomeRestaurant = () => {
 
+    const { data, setData } = useContext(UserContext)
     var option_home = null
     var option_stadistic = null
     var option_comment = null
@@ -25,55 +29,55 @@ const HomeRestaurant = () => {
     var option_profile = null
     var option_logout = null
 
-    const addEventStadisticHoverIn = (e) => { 
-        option_stadistic.style.content = 'url(' + aside_restaurant_stadistic_hover + ')' 
-        document.getElementById("title_modal_menu_stadistics").style.display ="flex"
+    const addEventStadisticHoverIn = (e) => {
+        option_stadistic.style.content = 'url(' + aside_restaurant_stadistic_hover + ')'
+        document.getElementById("title_modal_menu_stadistics").style.display = "flex"
     }
-    const addEventStadisticHoverOut = (e) => { 
-        option_stadistic.style.content = 'url(' + aside_restaurant_stadistic_normal + ')' 
-        document.getElementById("title_modal_menu_stadistics").style.display ="none"
+    const addEventStadisticHoverOut = (e) => {
+        option_stadistic.style.content = 'url(' + aside_restaurant_stadistic_normal + ')'
+        document.getElementById("title_modal_menu_stadistics").style.display = "none"
     }
-    const addEventCommentHoverIn = (e) => { 
-        option_comment.style.content = 'url(' + aside_restaurant_comment_hover + ')' 
-        document.getElementById("title_modal_menu_comments").style.display ="flex"
+    const addEventCommentHoverIn = (e) => {
+        option_comment.style.content = 'url(' + aside_restaurant_comment_hover + ')'
+        document.getElementById("title_modal_menu_comments").style.display = "flex"
     }
     const addEventCommentHoverOut = (e) => {
-        option_comment.style.content = 'url(' + aside_restaurant_comment_normal + ')' 
-        document.getElementById("title_modal_menu_comments").style.display ="none"
+        option_comment.style.content = 'url(' + aside_restaurant_comment_normal + ')'
+        document.getElementById("title_modal_menu_comments").style.display = "none"
     }
-    const addEventSuggestionHoverIn = (e) => { 
-        option_suggestion.style.content = 'url(' + aside_restaurant_suggestion_hover + ')' 
-        document.getElementById("title_modal_menu_suggestions").style.display ="flex"
+    const addEventSuggestionHoverIn = (e) => {
+        option_suggestion.style.content = 'url(' + aside_restaurant_suggestion_hover + ')'
+        document.getElementById("title_modal_menu_suggestions").style.display = "flex"
     }
-    const addEventSuggestionHoverOut = (e) => { 
-        option_suggestion.style.content = 'url(' + aside_restaurant_suggestion_normal + ')' 
-        document.getElementById("title_modal_menu_suggestions").style.display ="none"
+    const addEventSuggestionHoverOut = (e) => {
+        option_suggestion.style.content = 'url(' + aside_restaurant_suggestion_normal + ')'
+        document.getElementById("title_modal_menu_suggestions").style.display = "none"
     }
-    const addEventComplaintHoverIn = (e) => { 
-        option_complaint.style.content = 'url(' + aside_restaurant_complaint_hover + ')' 
-        document.getElementById("title_modal_menu_complaints").style.display ="flex"
+    const addEventComplaintHoverIn = (e) => {
+        option_complaint.style.content = 'url(' + aside_restaurant_complaint_hover + ')'
+        document.getElementById("title_modal_menu_complaints").style.display = "flex"
     }
-    const addEventComplaintHoverOut = (e) => { 
-        option_complaint.style.content = 'url(' + aside_restaurant_complaint_normal + ')' 
-        document.getElementById("title_modal_menu_complaints").style.display ="none"
+    const addEventComplaintHoverOut = (e) => {
+        option_complaint.style.content = 'url(' + aside_restaurant_complaint_normal + ')'
+        document.getElementById("title_modal_menu_complaints").style.display = "none"
     }
 
-    const addEventProfileHoverIn = (e) => { 
-        option_profile.style.content = 'url(' + aside_restaurant_profile_hover + ')' 
-        document.getElementById("title_modal_menu_profile").style.display ="flex"
+    const addEventProfileHoverIn = (e) => {
+        option_profile.style.content = 'url(' + aside_restaurant_profile_hover + ')'
+        document.getElementById("title_modal_menu_profile").style.display = "flex"
     }
-    const addEventProfileHoverOut = (e) => { 
-        option_profile.style.content = 'url(' + aside_restaurant_profile_normal + ')' 
-        document.getElementById("title_modal_menu_profile").style.display ="none"
+    const addEventProfileHoverOut = (e) => {
+        option_profile.style.content = 'url(' + aside_restaurant_profile_normal + ')'
+        document.getElementById("title_modal_menu_profile").style.display = "none"
     }
-    
-    const addEventLogoutHoverIn = (e) => { 
-        option_logout.style.content = 'url(' + aside_restaurant_logout_hover + ')' 
-        document.getElementById("title_modal_menu_logout").style.display ="flex"
+
+    const addEventLogoutHoverIn = (e) => {
+        option_logout.style.content = 'url(' + aside_restaurant_logout_hover + ')'
+        document.getElementById("title_modal_menu_logout").style.display = "flex"
     }
-    const addEventLogoutHoverOut = (e) => { 
-        option_logout.style.content = 'url(' + aside_restaurant_logout_normal + ')' 
-        document.getElementById("title_modal_menu_logout").style.display ="none"
+    const addEventLogoutHoverOut = (e) => {
+        option_logout.style.content = 'url(' + aside_restaurant_logout_normal + ')'
+        document.getElementById("title_modal_menu_logout").style.display = "none"
     }
 
 
@@ -84,7 +88,7 @@ const HomeRestaurant = () => {
         option_suggestion = document.getElementById("aside_restaurant_suggestion")
         option_complaint = document.getElementById("aside_restaurant_complaint")
         option_profile = document.getElementById("aside_restaurant_profile")
-        option_logout = document.getElementById("aside_restaurant_logout")   
+        option_logout = document.getElementById("aside_restaurant_logout")
 
         option_home.style.content = 'url(' + aside_restaurant_home_selected + ')'
 
@@ -99,10 +103,10 @@ const HomeRestaurant = () => {
 
         option_complaint.addEventListener('mouseover', addEventComplaintHoverIn, false)
         option_complaint.addEventListener('mouseleave', addEventComplaintHoverOut, false)
-        
+
         option_profile.addEventListener('mouseover', addEventProfileHoverIn, false)
         option_profile.addEventListener('mouseleave', addEventProfileHoverOut, false)
-        
+
         option_logout.addEventListener('mouseover', addEventLogoutHoverIn, false)
         option_logout.addEventListener('mouseleave', addEventLogoutHoverOut, false)
 
@@ -124,12 +128,31 @@ const HomeRestaurant = () => {
     }, [])
 
     return (
-        <div class="main_restaurant">
-            <AsideRestaurant />
-            <div class="main_restaurant_header">
-                <h1>Home</h1>
+            <div class="main_restaurant">
+                <AsideRestaurant />
+                <div className="main_restaurant_content">
+                    <div class="main_restaurant_content_header">
+                        <h2>Home</h2>
+                        <h2>{data["name"]}</h2>
+                    </div>
+                    <div className="main_restaurant_content_image">
+                        <img src={background_Home} alt="" />
+                    </div>
+                    <div className="main_restaurant_content_state">
+                        <div className="main_restaurant_content_state_content">
+                            <h3>Estado del restaurante</h3>
+                            <img src={state_noactive} alt="" />
+                        </div>
+                        <div className="main_restaurant_content_state_content">
+                            <h3>Recomendaciones</h3>
+                            <p>Por favor terminar de completar la información basica del restaurante,
+                                para que este pueda ser publicado en la aplicación. Dirijase a la seccion
+                                "Editar perfil" para terminar el proceso.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
     )
 }
 

@@ -19,7 +19,7 @@ const AsideRestaurant = () => {
             </div>
             <div class="main_restaurant_aside_main_options">
                 <div class="main_restaurant_aside_main_options_optionHome">
-                    <img src={aside_restaurant_home_normal} alt="" id="aside_restaurant_home" onClick={() => { navigate("/") }} />
+                    <img src={aside_restaurant_home_normal} alt="" id="aside_restaurant_home" onClick={() => { navigate("/Home") }} />
                     <div className="main_restaurant_aside_main_options_optionHome_title" id="title_modal_menu_home">
                         <h2>Inicio</h2>
                     </div>

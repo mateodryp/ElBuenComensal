@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import aside_restaurant_home_normal from '../Statics/img/aside_restaurant_home_normal.png'
 import aside_restaurant_home_hover from '../Statics/img/aside_restaurant_home_hover.png'
 import aside_restaurant_stadistic_normal from '../Statics/img/aside_restaurant_stadistic_normal.png'
@@ -12,9 +12,13 @@ import aside_restaurant_profile_normal from '../Statics/img/aside_restaurant_pro
 import aside_restaurant_profile_hover from '../Statics/img/aside_restaurant_profile_hover.png'
 import aside_restaurant_logout_normal from '../Statics/img/aside_restaurant_logout_normal.png'
 import aside_restaurant_logout_hover from '../Statics/img/aside_restaurant_logout_hover.png'
+import background_suggestions from '../Statics/img/background_suggestions.jpg'
 import AsideRestaurant from '../Components/AsideRestaurant';
+import Suggestion from '../Components/Suggestion'
+import UserProvider, { UserContext } from '../Context/UserContext'
 
 const SuggestionsRestaurant = () => {
+    const { data, setData } = useContext(UserContext)
     var option_home = null
     var option_stadistic = null
     var option_comment = null
@@ -81,7 +85,7 @@ const SuggestionsRestaurant = () => {
         option_suggestion = document.getElementById("aside_restaurant_suggestion")
         option_complaint = document.getElementById("aside_restaurant_complaint")
         option_profile = document.getElementById("aside_restaurant_profile")
-        option_logout = document.getElementById("aside_restaurant_logout")  
+        option_logout = document.getElementById("aside_restaurant_logout")
 
         option_suggestion.style.content = 'url(' + aside_restaurant_suggestion_selected + ')'
 
@@ -123,9 +127,33 @@ const SuggestionsRestaurant = () => {
     return (
         <div class="main_restaurant">
             <AsideRestaurant />
-            <div class="main_restaurant_header">
-                <h1>Suggestions</h1>
+            <div className="main_restaurant_content">
+                <div class="main_restaurant_content_header">
+                    <h2>Sugerencias</h2>
+                    <h2>{data["name"]}</h2>
+                </div>
+                <div className="main_restaurant_content_image">
+                    <img src={background_suggestions} alt="" />
+                </div>
+                <div className="main_restaurant_content_comments">
+                        <Suggestion gender="F" title="Mejorar Servicio" name={"Kevin Rodriguez"}
+                        suggestion={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipnter took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."}
+                        date={"22/04/2022"} />
+                        <Suggestion gender="F" title="Mejorar Servicio" name={"Kevin Rodriguez"}
+                        suggestion={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipnter took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."}
+                        date={"22/04/2022"} />
+                        <Suggestion gender="F" title="Mejorar Servicio" name={"Kevin Rodriguez"}
+                        suggestion={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipnter took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."}
+                        date={"22/04/2022"} />
+                        <Suggestion gender="F" title="Mejorar Servicio" name={"Kevin Rodriguez"}
+                        suggestion={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipnter took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."}
+                        date={"22/04/2022"} />
+                        <Suggestion gender="F" title="Mejorar Servicio" name={"Kevin Rodriguez"}
+                        suggestion={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipnter took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."}
+                        date={"22/04/2022"} />
+                </div>
             </div>
+
         </div>
     )
 }
