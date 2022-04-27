@@ -34,6 +34,9 @@ img{
     width: 100%;
 }
 
+button:hover{
+    cursor: pointer;
+}
 /*Home*/
 .main_header{
     max-width: 100vw;
@@ -1119,46 +1122,187 @@ width: 100rem;
     color: white;
 }
 
+.form_infoc_contacts_response{
+    width: 100%;
+    display: none;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: red;
+}
+
 
 .main_restaurant_content_infoc_menu{
     margin-top: 3rem;
     width: 100%;
-    height: 12rem;
-    margin-left: 2rem;
-    border: 2px solid var(--Gray);
+    height: 25rem;
+    padding-left: 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 0.5rem;
     gap: 1rem;
     padding: 0.5rem 0 0.5rem 0;
-    background-color: #343434;
 }
 
 .main_restaurant_content_infoc_menu_pdf{
-    width: 40rem;
+    width: 30rem;
     height: 20rem;
     display: flex;
+    margin-left: 5rem;
     flex-direction: column;
     align-items: center;
-    background-color: #A3D818;
+    justify-content: center;
+    border: solid var(--Black);
+    background-color: var(--Black);
+    border-radius: 1rem;
 }
-.main_restaurant_content_infoc_menu_pdf h2{
-    font-weight: 300;
-    font-size: 1.2rem;
+.main_restaurant_content_infoc_menu_pdf h3{
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--GrayWhite);
 }
 .main_restaurant_content_infoc_menu_pdf img{
-    width: 20%;
+    width: 40%;
 }
 
 .main_restaurant_content_infoc_menu_pdf label{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    
 }
 
 .main_restaurant_content_infoc_menu_pdf input{
     display: none;
 }
 
+.main_restaurant_content_infoc_menu_pdf button{
+    margin-top: 1rem;
+    height: 2rem;
+    width: 15rem;
+    background-color: var(--Green);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: white;
+}
+
 .main_restaurant_content_infoc_menu_pdf label:hover{
     cursor: pointer;
+}
+
+.main_restaurant_content_infoc_description{
+    width: 100%;
+    padding-left: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main_restaurant_content_infoc_description_text{
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_restaurant_content_infoc_description_text textarea{
+    width: 60rem;
+    height: 25rem;
+    border: 2px solid var(--Black);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.main_restaurant_content_infoc_description_buttons{
+    margin-top: 2rem;
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.main_restaurant_content_infoc_description_buttons button{
+    height: 3rem;
+    width: 15rem;
+    background-color: var(--Green);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.main_restaurant_content_infoc_photos{
+    margin-top: 3rem;
+    width: 100%;
+    height: 25rem;
+    padding-left: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    padding: 0.5rem 0 0.5rem 0;
+}
+
+.main_restaurant_content_infoc_photos_photo{
+    width: 35rem;
+    height: 25rem;
+    display: flex;
+    margin-left: 5rem;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid var(--Black);
+    background-color: var(--Black);
+    border-radius: 1rem;
+}
+
+.main_restaurant_content_infoc_photos_photo h3{
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--GrayWhite);
+}
+.main_restaurant_content_infoc_photos_photo img{
+    width: 40%;
+}
+
+.main_restaurant_content_infoc_photos_photo label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.main_restaurant_content_infoc_photos_photo input{
+    display: none;
+}
+
+.main_restaurant_content_infoc_photos_photo button{
+    margin-top: 1rem;
+    height: 2rem;
+    width: 15rem;
+    background-color: var(--Green);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.main_restaurant_content_infoc_photos_photo label:hover{
+    cursor: pointer;
+}
+
+.main_restaurant_content_infoc_photos_photo_buttons{
+    display: flex;
+    gap: 2rem;
 }

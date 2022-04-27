@@ -15,16 +15,35 @@ import aside_restaurant_logout_hover from '../Statics/img/aside_restaurant_logou
 import AsideRestaurant from '../Components/AsideRestaurant';
 import background_profile from '../Statics/img/background_profile.jpg'
 import pdfImage from "../Statics/img/pdf_change.png";
-
+import image from "../Statics/img/image.png";
 import UserProvider, { UserContext } from '../Context/UserContext'
 
 
 const ProfileRestaurant = () => {
     const { data, setData } = useContext(UserContext)
-    const { menu, setMenu } = useState({
+
+    const [menu, setMenu] = useState({
         state: 1,
         url: data["menu"]
     })
+
+    const [images, setimages] = useState({
+        state: 1
+    })
+
+
+    const [description, setDescription] = useState({
+        state: 1,
+        description: data["description"]
+    })
+    const [archivo, setArchivo] = useState("")
+    const [archivoImage, setArchivoImage] = useState("")
+    const [errorContact, seterrorContact] = useState("")
+    const [errorRestaurant, seterrorRestaurant] = useState("")
+    const [errorMenu, seterrorMenu] = useState("")
+    const [errorDescription, seterrorDescription] = useState("")
+    const [errorImages, seterrorImages] = useState("")
+
     const [inf_cont, setInfcont] = useState({
         state: 1,
         name: data["name_representative"],
@@ -50,9 +69,18 @@ const ProfileRestaurant = () => {
     var option_profile = null
     var option_logout = null
 
+
+
     const handleChange = (e) => {
         setInfcont({
             ...inf_cont,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const handleChangeDescription = (e) => {
+        setDescription({
+            ...description,
             [e.target.name]: e.target.value,
         });
     }
@@ -72,10 +100,8 @@ const ProfileRestaurant = () => {
 
     const cancelContactsButton = (e) => {
         e.preventDefault();
-        var refName = document.getElementById("info_contacts_name")
-        var refLast_name = document.getElementById("info_contacts_last_name")
-        var refEmail = document.getElementById("info_contacts_email")
-        var refPhone_number = document.getElementById("info_contacts_phone")
+        var refResponse = document.getElementById("contacts_response")
+        refResponse.style.display = "none"
         setInfcont({
             state: 1,
             name: data["name_representative"],
@@ -85,16 +111,61 @@ const ProfileRestaurant = () => {
         })
     }
 
-    const sendContactsButton = (e) => {
+    const sendContactsButton = async (e) => {
         e.preventDefault();
+        var refName = document.getElementById("info_contacts_name")
+        var refLast_name = document.getElementById("info_contacts_last_name")
+        var refEmail = document.getElementById("info_contacts_email")
+        var refPhone_number = document.getElementById("info_contacts_phone")
+        var refResponse = document.getElementById("contacts_response")
 
+        const formData = new FormData();
+        if (refName.value !== "" && refLast_name.value !== "" && refEmail.value !== "" && refPhone_number.value !== "") {
+            formData.append("email", refEmail.value)
+            formData.append("name_representative", refName.value)
+            formData.append("last_name_representative", refLast_name.value)
+            formData.append("phone_number_representative", refPhone_number.value)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/update_contact/" + data["id_restaurant"], {
+                    method: 'PUT',
+                    body: formData,
+                })
+                const put = await resPut.json()
+                if (put["code"] === 1) {
+                    seterrorContact("¡Datos actualizados, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setInfcont({
+                            state: 1,
+                            name: data["name_representative"],
+                            last_name: data["last_name_representative"],
+                            email: data["email"],
+                            phone: data["phone_number_representative"]
+                        })
+                    }, 5000);
+                } else {
+                    seterrorContact("¡Correo electrónico en uso, por favor ingrese uno nuevo!")
+                    refResponse.style.display = "flex"
+                }
+
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            seterrorContact("¡Por favor llenar todos los campos!")
+            refResponse.style.display = "flex"
+        }
     }
 
 
     const editInformationRestaurantButton = (e) => {
         e.preventDefault();
         var refName = document.getElementById("info_res_name")
-        var refAddress = document.getElementById("info_res_addres")
+        var refAddress = document.getElementById("info_res_address")
         var refNeighborhood = document.getElementById("info_res_neighborhood")
         var refPhone_number = document.getElementById("info_res_phone")
         var refPrices = document.getElementById("info_res_prices")
@@ -108,6 +179,8 @@ const ProfileRestaurant = () => {
 
     const cancelRestaurantButton = (e) => {
         e.preventDefault();
+        var refResponse = document.getElementById("restaurant_response")
+        refResponse.style.display = "none"
         setInfres({
             state: 1,
             name: data["name"],
@@ -118,11 +191,226 @@ const ProfileRestaurant = () => {
         })
     }
 
-    const sendRestaurantButton = (e) => {
+    const sendRestaurantButton = async (e) => {
         e.preventDefault();
+        var refName = document.getElementById("info_res_name")
+        var refAddress = document.getElementById("info_res_address")
+        var refNeighborhood = document.getElementById("info_res_neighborhood")
+        var refPhone_number = document.getElementById("info_res_phone")
+        var refPrices = document.getElementById("info_res_prices")
+        var refResponse = document.getElementById("restaurant_response")
+
+        const formData = new FormData();
+        if (refName.value !== "" && refNeighborhood.value !== "" && refAddress.value !== "" && refPhone_number.value !== "" && refPrices.value !== "") {
+            formData.append("name", refName.value)
+            formData.append("address", refAddress.value)
+            formData.append("neighborhood", refNeighborhood.value)
+            formData.append("phone_number", refPhone_number.value)
+            formData.append("prices", refPrices.value)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/update_restaurant/" + data["id_restaurant"], {
+                    method: 'PUT',
+                    body: formData,
+                })
+                const put = await resPut.json()
+                if (put["code"] === 1) {
+                    seterrorRestaurant("¡Datos actualizados, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setInfres({
+                            state: 1,
+                            name: data["name"],
+                            address: data["address"],
+                            neighborhood: data["neighborhood"],
+                            phone: data["phone_number"],
+                            prices: data["prices"]
+                        })
+                    }, 5000);
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            seterrorRestaurant("¡Por favor llenar todos los campos!")
+            refResponse.style.display = "flex"
+        }
+
 
     }
 
+    const openMenu = (e) => {
+        e.preventDefault();
+        window.open("http://144.22.197.146:8000" + data["menu"])
+    }
+
+    const handleFileSelect = (e) => {
+        setArchivo({
+            archivo: e.target.files[0],
+            archivoNombre: e.target.files[0].name
+        })
+
+    }
+
+    const handleImageSelect = (e) => {
+        var Images = []
+        Array.from(e.target.files).forEach(image => {
+            Images.push(image)
+        })
+        setArchivoImage({
+            Imagenes: Images,
+            size: Images.length
+        })
+    }
+
+    const sendMenu = async (e) => {
+        e.preventDefault();
+        var refResponse = document.getElementById("menu_response")
+        if (archivo.archivo) {
+            const formData = new FormData();
+            formData.append("menu", archivo.archivo)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/update_menu/" + data["id_restaurant"], {
+                    method: 'PUT',
+                    body: formData,
+                })
+                const put = await resPut.json()
+                if (put["code"] === 1) {
+                    seterrorMenu("¡Menú actualizado, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setMenu({
+                            state: 1,
+                            url: data["menu"]
+                        })
+                    }, 5000);
+                }
+
+            } catch (e) {
+                console.log(e)
+            };
+
+        } else {
+            seterrorMenu("¡Por favor seleccione un archivo!")
+            refResponse.style.display = "flex"
+
+        }
+    }
+
+    const editInformationDescriptionButton = (e) => {
+        e.preventDefault();
+        var refDescription = document.getElementById("restaurant_description")
+        refDescription.readOnly = false
+        setDescription(2)
+    }
+
+    const cancelDescriptionButton = (e) => {
+        e.preventDefault();
+        var refDescription = document.getElementById("restaurant_description")
+        refDescription.readOnly = true
+        var refResponse = document.getElementById("description_response")
+        refResponse.style.display = "none"
+        setDescription({
+            state: 1,
+            description: data["description"]
+        })
+    }
+
+    const sendDescription = async (e) => {
+        e.preventDefault();
+        var refDescription = document.getElementById("restaurant_description")
+        var refResponse = document.getElementById("description_response")
+        if (refDescription.value !== "") {
+            const formData = new FormData();
+            formData.append("description", refDescription.value)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/update_description/" + data["id_restaurant"], {
+                    method: 'PUT',
+                    body: formData,
+                })
+                const put = await resPut.json()
+                console.log(put)
+                if (put["code"] === 1) {
+                    seterrorDescription("¡Descripción actualizada, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setDescription({
+                            state: 1,
+                            description: data["description"]
+                        })
+                    }, 5000);
+                }
+
+            } catch (e) {
+                console.log(e)
+            };
+
+        } else {
+            seterrorDescription("¡Por favor llenar todos los campos!")
+            refResponse.style.display = "flex"
+
+        }
+    }
+
+    const cancelImageBurron  = (e) => {
+        e.preventDefault();
+        var refResponse = document.getElementById("images_response")
+        refResponse.style.display = "none"
+        setimages({
+            state: 1
+        })
+    }
+
+    const sendImages = async (e) => {
+        e.preventDefault();
+        var refResponse = document.getElementById("images_response")
+        if (archivoImage.Imagenes) {
+            const formData = new FormData();
+            console.log(archivoImage.Imagenes)
+            formData.append("restaurant", parseInt(data["id_restaurant"],10))
+            formData.append("imagen", archivoImage.Imagenes[0])
+            try {
+                const resPost = await fetch("http://144.22.197.146:8000/restaurants/gallery/", {
+                    method: 'POST',
+                    body: formData
+                })
+                const post = await resPost.json()
+                console.log(post)
+                if (post["code"] === 1) {
+                    seterrorImages("¡Imagenes actualizadas!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setimages({
+                            state: 1
+                        })
+                    }, 5000);
+                }
+
+            } catch (e) {
+                console.log(e)
+            };
+
+        } else {
+            seterrorImages("¡Por favor seleccione al menos una imagen!")
+            refResponse.style.display = "flex"
+
+        }
+    }
 
 
     const addEventHomeHoverIn = (e) => {
@@ -274,6 +562,10 @@ const ProfileRestaurant = () => {
                             }
                         </div>
 
+                        <div className="form_infoc_contacts_response" id="contacts_response">
+                            <h3>{errorContact}</h3>
+                        </div>
+
                     </form>
                 </div>
                 <div className="main_restaurant_content_infoc_contact_header">
@@ -288,7 +580,7 @@ const ProfileRestaurant = () => {
                             </div>
                             <div className="form_infoc_contacts_input">
                                 <label htmlFor="">Dirección: </label>
-                                <input type="text" name="" id="info_res_addres" readOnly value={inf_res["address"]} onChange={handleChange} />
+                                <input type="text" name="" id="info_res_address" readOnly value={inf_res["address"]} onChange={handleChange} />
                             </div>
                             <div className="form_infoc_contacts_input">
                                 <label htmlFor="">Barrio: </label>
@@ -321,6 +613,10 @@ const ProfileRestaurant = () => {
                             }
                         </div>
 
+                        <div className="form_infoc_contacts_response" id="restaurant_response">
+                            <h3>{errorRestaurant}</h3>
+                        </div>
+
                     </form>
                 </div>
                 <div className="main_restaurant_content_infoc_contact_header">
@@ -328,14 +624,97 @@ const ProfileRestaurant = () => {
                 </div>
                 <div className='main_restaurant_content_infoc_menu'>
                     <div className="main_restaurant_content_infoc_menu_pdf">
-                        <input type="file" name="file_menu_restaurant" id="file_menu_restaurant" accept=".pdf" />
-                        <label htmlFor="file_menu_restaurant" ><img src={pdfImage} alt="" /></label>
+                        {menu["state"] === 1 ?
+                            <>
+                                <input type="file" name="file_menu_restaurant" id="file_menu_restaurant" accept=".pdf" onClick={openMenu} />
+                                <label htmlFor="file_menu_restaurant" >
+                                    <img src={pdfImage} alt="" />
+                                    <h3>Descargar Menú actual</h3>
+                                </label>
+                                <button onClick={() => setMenu({ state: 2 })}>Cambiar Menu</button>
+                            </>
+                            :
+
+                            <>
+                                <input type="file" name="file_menu_restaurant" id="file_menu_restaurant" accept=".pdf" onChange={handleFileSelect} />
+                                <label htmlFor="file_menu_restaurant" >
+                                    <img src={pdfImage} alt="" />
+                                    <h3>{archivo.archivo ? archivo.archivoNombre : "No ha seleccionado ningun archivo"}</h3>
+                                </label>
+                                <button onClick={sendMenu}>Enviar</button>
+
+                            </>
+                        }
+                    </div>
+                    <div className="form_infoc_contacts_response" id="menu_response">
+                        <h3>{errorMenu}</h3>
+                    </div>
+                </div>
+                <div className="main_restaurant_content_infoc_contact_header">
+                    <h3>Descripción del restaurante</h3>
+                </div>
+                <div className='main_restaurant_content_infoc_description'>
+                    <div className='main_restaurant_content_infoc_description_text'>
+                        <textarea name="" id="restaurant_description" cols="70" readOnly rows="10" value={description["description"]} onChange={handleChangeDescription}> </textarea>
+                    </div>
+                    <div className='main_restaurant_content_infoc_description_buttons'>
+                        {description["state"] === 1 ?
+                            <>
+                                <button onClick={editInformationDescriptionButton}>Editar Información</button>
+                            </>
+                            :
+
+                            <>
+                                <button onClick={cancelDescriptionButton}>Cancelar</button>
+                                <button onClick={sendDescription}>Actualizar</button>
+                            </>
+                        }
+
+                    </div>
+                    <div className="form_infoc_contacts_response" id="description_response">
+                        <h3>{errorDescription}</h3>
+                    </div>
+                </div>
+                <div className="main_restaurant_content_infoc_contact_header">
+                    <h3>Fotos del restaurante</h3>
+                </div>
+                <div className="main_restaurant_content_infoc_photos">
+                    <div className="main_restaurant_content_infoc_photos_photo">
+                        {images["state"] === 1 ?
+                            <>
+                                <input type="file" name="file_images_restaurant" id="file_menu_restaurant" />
+                                <label htmlFor="file_images_restaurant" >
+                                    <img src={image} alt="" />
+                                    <h3>Ya ha subido imagenes</h3>
+                                </label>
+                                <button onClick={() => setimages({ state: 2 })}>Cambiar fotos</button>
+                            </>
+                            :
+
+                            <>
+                                <input type="file" multiple name="file_images_restaurant_select" id="file_images_restaurant_select" accept="image/*" onChange={handleImageSelect} />
+                                <label htmlFor="file_images_restaurant_select" >
+                                    <img src={image} alt="" />
+                                    <h3>{archivoImage.size ? "Ha seleccionado " + archivoImage.size + " imagenes" : "No ha seleccionado ningun archivo"}</h3>
+                                </label>
+                                <div className='main_restaurant_content_infoc_photos_photo_buttons'>
+                                    <button onClick={() => setimages({ state: 1 })} >Cancelar</button>
+                                    <button onClick={sendImages}>Actualizar</button>
+                                </div>
+
+                            </>
+                        }
+                        <div className="form_infoc_contacts_response" id="images_response">
+                            <h3>{errorDescription}</h3>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
 
         </div>
+
     )
 }
 
