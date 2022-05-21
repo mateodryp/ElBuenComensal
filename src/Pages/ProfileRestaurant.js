@@ -40,9 +40,11 @@ const ProfileRestaurant = () => {
     const [archivoImage, setArchivoImage] = useState("")
     const [errorContact, seterrorContact] = useState("")
     const [errorRestaurant, seterrorRestaurant] = useState("")
+    const [errorExtra, seterrorExtra] = useState("")
     const [errorMenu, seterrorMenu] = useState("")
     const [errorDescription, seterrorDescription] = useState("")
     const [errorImages, seterrorImages] = useState("")
+    const [errorEtiqueta, seterrorEtiqueta] = useState("")
 
     const [inf_cont, setInfcont] = useState({
         state: 1,
@@ -50,6 +52,11 @@ const ProfileRestaurant = () => {
         last_name: data["last_name_representative"],
         email: data["email"],
         phone: data["phone_number_representative"]
+    })
+    const [inf_ext, setInfext] = useState({
+        state: 1,
+        type_food: data["type_food"],
+        schedule: data["schedule"],
     })
 
     const [inf_res, setInfres] = useState({
@@ -74,6 +81,13 @@ const ProfileRestaurant = () => {
     const handleChange = (e) => {
         setInfcont({
             ...inf_cont,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const handleChangeExtra = (e) => {
+        setInfext({
+            ...inf_ext,
             [e.target.name]: e.target.value,
         });
     }
@@ -304,6 +318,74 @@ const ProfileRestaurant = () => {
         }
     }
 
+    const editInformationExtraButton = (e) => {
+        e.preventDefault();
+        var refTipo = document.getElementById("info_ext_tipo")
+        var refHorario = document.getElementById("info_ext_horario")
+        refTipo.readOnly = false
+        refHorario.readOnly = false
+        setInfext(2)
+    }
+
+    const cancelarInformationExtraButton = (e) => {
+        e.preventDefault();
+        var refTipo = document.getElementById("info_ext_tipo")
+        var refHorario = document.getElementById("info_ext_horario")
+        refTipo.readOnly = true
+        refHorario.readOnly = true
+        setInfext({
+            state: 1,
+            type_food: data["type_food"],
+            schedule: data["schedule"],
+        })
+    }
+
+    const sendExtraInfo = async (e) => {
+        e.preventDefault();
+        var refTipo = document.getElementById("info_ext_tipo")
+        var refHorario = document.getElementById("info_ext_horario")
+        var refResponse = document.getElementById("extra_response")
+        if (refTipo.value !== "" && refHorario.value !== "") {
+            console.log("entre")
+            const formData = new FormData();
+            formData.append("type_food", refTipo.value)
+            formData.append("schedule", refHorario.value)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/update_info/" + data["id_restaurant"] + "/", {
+                    method: 'PUT',
+                    body: formData,
+                })
+                const put = await resPut.json()
+                console.log(put)
+                if (put["code"] === 1) {
+                    seterrorExtra("¡Información actualizada, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                        setInfext({
+                            state: 1,
+                            type_food: data["type_food"],
+                            schedule: data["schedule"],
+                        })
+                    }, 5000);
+                }
+
+            } catch (e) {
+                console.log(e)
+            };
+
+        } else {
+            seterrorExtra("¡Por favor llenar todos los campos!")
+            refResponse.style.display = "flex"
+
+        }
+    }
+
+
+
     const editInformationDescriptionButton = (e) => {
         e.preventDefault();
         var refDescription = document.getElementById("restaurant_description")
@@ -363,13 +445,14 @@ const ProfileRestaurant = () => {
         }
     }
 
-    const cancelImageBurron  = (e) => {
+    const cancelImageButton = (e) => {
         e.preventDefault();
         var refResponse = document.getElementById("images_response")
         refResponse.style.display = "none"
         setimages({
             state: 1
         })
+        setArchivoImage({})
     }
 
     const sendImages = async (e) => {
@@ -378,8 +461,11 @@ const ProfileRestaurant = () => {
         if (archivoImage.Imagenes) {
             const formData = new FormData();
             console.log(archivoImage.Imagenes)
-            formData.append("restaurant", parseInt(data["id_restaurant"],10))
-            formData.append("imagen", archivoImage.Imagenes[0])
+            formData.append("restaurant", parseInt(data["id_restaurant"], 10))
+            for (var i = 0; i < archivoImage.Imagenes.length; i++) {
+                formData.append("imagen", archivoImage.Imagenes[i])
+            }
+
             try {
                 const resPost = await fetch("http://144.22.197.146:8000/restaurants/gallery/", {
                     method: 'POST',
@@ -388,6 +474,7 @@ const ProfileRestaurant = () => {
                 const post = await resPost.json()
                 console.log(post)
                 if (post["code"] === 1) {
+                    console.log("correcto")
                     seterrorImages("¡Imagenes actualizadas!")
                     refResponse.style.color = "#A3D818"
                     refResponse.style.display = "flex"
@@ -410,6 +497,76 @@ const ProfileRestaurant = () => {
             refResponse.style.display = "flex"
 
         }
+    }
+
+    const addEtiqueta = async (e) => {
+        e.preventDefault();
+        var refetiqueta = document.getElementById("field_add_etiqueta")
+        var refResponse = document.getElementById("etiquetas_response")
+        if (refetiqueta.value !== "") {
+            const formData = new FormData();
+            formData.append("restaurant", data["id_restaurant"])
+            formData.append("tags", refetiqueta.value)
+            try {
+                const resPut = await fetch("http://144.22.197.146:8000/restaurants/tags/", {
+                    method: 'POST',
+                    body: formData,
+                })
+                const post = await resPut.json()
+                console.log(post)
+                if (post["code"] === 1) {
+                    seterrorEtiqueta("¡Etiqueta agregada, para visualizar los cambios debe volver a iniciar sesión!")
+                    refResponse.style.color = "#A3D818"
+                    refResponse.style.display = "flex"
+
+                    setTimeout(() => {
+                        refResponse.style.color = "red"
+                        refResponse.style.display = "none"
+                    }, 5000);
+                } else {
+                    seterrorEtiqueta("¡Etiqueta ya existe!")
+                    refResponse.style.color = "red"
+                    refResponse.style.display = "flex"
+                    setTimeout(() => {
+                        refResponse.style.display = "none"
+                    }, 5000);
+                }
+
+            } catch (e) {
+                console.log(e)
+            };
+
+        } else {
+            seterrorEtiqueta("¡Por favor llenar todos los campos!")
+            refResponse.style.display = "flex"
+
+        }
+    }
+
+    const deleteEtiqueta = async (e) => {
+        e.preventDefault();
+        let id_etiqueta = e.currentTarget.id
+        var refResponse = document.getElementById("etiquetas_response")
+        try {
+            const resDel = await fetch("http://144.22.197.146:8000/restaurants/tags_delete/"+id_etiqueta+"/", {
+                method: 'DELETE',
+            })
+            const del = await resDel.json()
+            console.log(del)
+            if (del["code"] === 1) {
+                seterrorEtiqueta("¡Etiqueta eliminada, para visualizar los cambios debe volver a iniciar sesión!")
+                refResponse.style.color = "#A3D818"
+                refResponse.style.display = "flex"
+
+                setTimeout(() => {
+                    refResponse.style.color = "red"
+                    refResponse.style.display = "none"
+                }, 5000);
+
+        } 
+        }catch (e) {
+            console.log(e)
+        };
     }
 
 
@@ -620,6 +777,45 @@ const ProfileRestaurant = () => {
                     </form>
                 </div>
                 <div className="main_restaurant_content_infoc_contact_header">
+                    <h3>Información extra</h3>
+                </div>
+                <div className="main_restaurant_content_infoc_contact_content">
+                    <form action="" className="form_infoc">
+                        <div className="form_infoc_contacts">
+                            <div className="form_infoc_contacts_input">
+                                <label htmlFor="tipo_comida">Tipo de comida: </label>
+                                <input type="text" name="tipo_comida" id="info_ext_tipo" readOnly value={inf_ext["type_food"]} onChange={handleChangeExtra} />
+                            </div>
+                            <div className="form_infoc_contacts_input">
+                                <label htmlFor="horario">Horario: </label>
+                                <input type="text" name="horario" id="info_ext_horario" readOnly value={inf_ext["schedule"]} onChange={handleChangeExtra} />
+                            </div>
+                        </div>
+
+                        <div className="form_infoc_contacts_buttons">
+                            {inf_ext["state"] === 1 ?
+                                <div className="form_infoc_contacts_buttons_button">
+                                    <button onClick={editInformationExtraButton}>Editar Información</button>
+                                </div>
+                                :
+                                <>
+                                    <div className="form_infoc_contacts_buttons_button">
+                                        <button onClick={cancelarInformationExtraButton}>Cancelar</button>
+                                    </div>
+                                    <div className="form_infoc_contacts_buttons_button">
+                                        <button onClick={sendExtraInfo}>Guardar</button>
+                                    </div>
+                                </>
+                            }
+                        </div>
+
+                        <div className="form_infoc_contacts_response" id="extra_response">
+                            <h3>{errorExtra}</h3>
+                        </div>
+
+                    </form>
+                </div>
+                <div className="main_restaurant_content_infoc_contact_header">
                     <h3>Menú del restaurante</h3>
                 </div>
                 <div className='main_restaurant_content_infoc_menu'>
@@ -698,18 +894,43 @@ const ProfileRestaurant = () => {
                                     <h3>{archivoImage.size ? "Ha seleccionado " + archivoImage.size + " imagenes" : "No ha seleccionado ningun archivo"}</h3>
                                 </label>
                                 <div className='main_restaurant_content_infoc_photos_photo_buttons'>
-                                    <button onClick={() => setimages({ state: 1 })} >Cancelar</button>
+                                    <button onClick={cancelImageButton} >Cancelar</button>
                                     <button onClick={sendImages}>Actualizar</button>
                                 </div>
 
                             </>
                         }
-                        <div className="form_infoc_contacts_response" id="images_response">
-                            <h3>{errorDescription}</h3>
-                        </div>
-
+                    </div>
+                    <div className="form_infoc_contacts_response" id="images_response">
+                        <h3>{errorImages}</h3>
                     </div>
                 </div>
+                <div className="main_restaurant_content_infoc_contact_header">
+                    <h3>Etiquetas del restaurante</h3>
+                </div>
+                <div className="main_restaurant_content_etiquetas">
+                    <div className="main_restaurant_content_etiquetas_field">
+                        <label htmlFor="etiqueta">Nombre de etiqueta:</label>
+                        <input type="text" name="etiqueta" id="field_add_etiqueta" />
+                        <button onClick={addEtiqueta}>Añadir</button>
+                    </div>
+                    <div className="main_restaurant_content_etiquetas_list">
+                        <h3>Lista de etiquetas activas</h3>
+                        {Object.entries(data["tags"]).map(element => {
+                            return (
+                                <div key={element[1].id_tags} className="main_restaurant_content_etiquetas_list_etiqueta">
+                                    <h4>{element[1].tags}</h4>
+                                    <button id={element[1].id_tags} onClick={deleteEtiqueta}>X</button>
+                                </div>)
+                        })}
+
+                    </div>
+                    <div className="form_infoc_contacts_response" id="etiquetas_response">
+                        <h3>{errorEtiqueta}</h3>
+                    </div>
+
+                </div>
+                <div className="espacio"></div>
 
             </div>
 

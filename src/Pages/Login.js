@@ -57,7 +57,10 @@ const Login = () => {
                         phone_number: post.phone_number,
                         phone_number_representative: post.phone_number_representative,
                         prices: post.prices,
-                        token: post.token
+                        token: post.token,
+                        type_food: post.type_food,
+                        schedule: post.schedule,
+                        tags: post.tags
                     })
                     let encyrpted = cryptoJs.AES.encrypt(JSON.stringify(data), key)
                     localStorage.setItem("userInfo", encyrpted );

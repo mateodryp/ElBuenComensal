@@ -39,10 +39,8 @@ const RegisterPartThree = ({ fatherState, partFuntion, handleChange, form }) => 
     method: 'POST',
     body: formData,
     })
-    console.log(resPost)
     const post = await resPost.json()
-    navigate("/Login"); 
-    console.log(post)
+    navigate("/Login");
   }catch(e){
     console.log(e)
   };

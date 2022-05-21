@@ -18,7 +18,10 @@ function UserProvider({ children }) {
         phone_number: "",
         phone_number_representative: "",
         prices: "",
-        token: ""
+        token: "",
+        type_food: "",
+        schedule: "",
+        tags: [],
     })
     return (
         <UserContext.Provider value={{ data, setData }}>
