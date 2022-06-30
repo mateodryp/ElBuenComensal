@@ -10,6 +10,7 @@ import SuggestionsRestaurant from "../Pages/SuggestionsRestaurant";
 import ComplaintsRestaurant from "../Pages/ComplaintsRestaurant";
 import ProfileRestaurant from "../Pages/ProfileRestaurant";
 import UserProvider from "../Context/UserContext";
+import NewRestaurant from "../Pages/NewRestaurant";
 
 const ListRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const ListRoutes = () => {
           <Route exact path="/Login" element={<Login />} />
           <Route exact path="/Register" element={<Register />} />
           <Route exact path="/ComoFunciona" element={<ComoFunciona />} />
+          <Route exact path="/RestaurantInfo" element={<NewRestaurant />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

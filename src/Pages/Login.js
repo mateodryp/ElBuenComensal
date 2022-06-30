@@ -59,12 +59,20 @@ const Login = () => {
                         prices: post.prices,
                         token: post.token,
                         type_food: post.type_food,
+                        environment: post.environment,
+                        vegetarian: post.vegetarian,
                         schedule: post.schedule,
+                        new: post.new,
                         tags: post.tags
                     })
                     let encyrpted = cryptoJs.AES.encrypt(JSON.stringify(data), key)
                     localStorage.setItem("userInfo", encyrpted );
-                    navigate("/Home");
+                    if(post.new === true){
+                        navigate("/RestaurantInfo");
+                    }else{
+                        navigate("/Home");
+
+                    }
                 } else {
                     settitleModal("¡Usuario o contraseña incorrectos!")
                     setmessageModal("Por favor verifique sus credenciales")

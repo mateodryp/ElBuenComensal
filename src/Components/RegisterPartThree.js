@@ -21,6 +21,8 @@ const RegisterPartThree = ({ fatherState, partFuntion, handleChange, form }) => 
     console.log(fatherState)
 
     const formData = new FormData();
+    let modal = document.getElementById("modalInfo")
+
     formData.append("name_representative",form.Nombres)
     formData.append("last_name_representative",form.Apellidos)
     formData.append("email",form.Email)
@@ -40,7 +42,15 @@ const RegisterPartThree = ({ fatherState, partFuntion, handleChange, form }) => 
     body: formData,
     })
     const post = await resPost.json()
-    navigate("/Login");
+    if(post.code === 1){
+      navigate("/Login");
+    }else{
+      settitleModal("¡Ya existe una cuenta con su correo!")
+      setmessageModal("Por favor intente con otra")
+      modal.style.display = "flex"
+
+    }
+   
   }catch(e){
     console.log(e)
   };
